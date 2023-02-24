@@ -2,13 +2,43 @@ import React, {Fragment, useState, useEffect} from 'react';
 
 //utils
 import { GetEmployeesAll } from '../Utils/Request/GetEmployeesAll';
-
 export const EmployeesList = () => {
 
     const [employees, setEmployee] = useState([]);
+    const [tag, setTag] = useState("ALL");
 
     const GetAll = () => {
+        setTag("ALL");
         GetEmployeesAll()
+        .then(res => {
+            const data = res.data ?? {};
+            if(data?.employees){
+                setEmployee(data.employees);
+            }else {
+                setEmployee([]);
+            }
+        })
+        .catch(error=> console.log(error));
+    };
+
+    const GetDeleted = () => {
+        setTag("DELETED");
+        GetEmployeesAll('deleted')
+        .then(res => {
+            const data = res.data ?? {};
+            if(data?.employees){
+                setEmployee(data.employees);
+            }else {
+                setEmployee([]);
+            }
+        })
+        .catch(error=> console.log(error));
+    };
+
+    
+    const GetDisabled = () => {
+        setTag("DISABLED");
+        GetEmployeesAll('disabled')
         .then(res => {
             const data = res.data ?? {};
             if(data?.employees){
@@ -27,7 +57,12 @@ export const EmployeesList = () => {
     return (
         <Fragment>
             <div className="ctr-employees">
-                <h4 className="tbl-employees-title">List of Employees 
+                <div class="ctr-options">
+                    <button className="all" onClick={GetAll}>All</button>
+                    <button className="deleted" onClick={GetDeleted}>Deleted</button>
+                    <button className="disabled" onClick={GetDisabled}>Disabled</button>
+                </div>
+                <h4 className="tbl-employees-title">List of {tag} Employees
                     <span className="counter">{employees.length}</span>
                 </h4>
                 <table className="tbl-employees">
@@ -81,6 +116,41 @@ export const EmployeesList = () => {
                     flex-direction:column;
                     justify-content:flex-start;
                     align-items:flex-start;
+                }
+
+                .ctr-options {
+                    background-color:white;
+                    width:100%;
+                    padding:5px;
+                    margin-bottom:10px;
+                    box-sizing:border-box;
+                    border-bottom:2px solid rgba(0, 0, 0, 0.2) ;
+
+                    display:flex;
+                    gap:5px;
+                    justify-content:flex-start;
+                    align-items:center;
+                }
+
+                .ctr-options > button {
+                    padding:5px 10px;
+                    border-radius:3px;
+                    border:none;
+                    cursor:pointer;
+                    color:white;
+                }
+
+                .ctr-options > button.all {
+                    background-color:lightseagreen;
+                }
+
+                .ctr-options > button.deleted {
+                    background-color:red;
+                }
+
+                
+                .ctr-options > button.disabled {
+                    background-color:orange;
                 }
 
                 .ctr-employees .tbl-employees-title {
