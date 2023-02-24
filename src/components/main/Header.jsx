@@ -1,14 +1,18 @@
 import React, {Fragment} from 'react';
 
+//assets
+import employeesIcon from "../../assets/img/employees.png";
+
 export const Header = () => {
     return (
         <Fragment>
             <header className='pg-header'>
+                <img src={employeesIcon} alt="employees-icon" height="40px" />
                 <h4 className='pg-header-title'>Master<span>Company</span></h4>
             </header>
             <style>{`
                 .pg-header {
-                    background-color:#154360;
+                    background-color:#212F3C;
                     color:white;
                     min-height:60px;
                     width:100%;
