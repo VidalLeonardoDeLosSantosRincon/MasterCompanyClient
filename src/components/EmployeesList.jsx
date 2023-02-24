@@ -21,7 +21,7 @@ export const EmployeesList = () => {
     };
 
     useEffect( ()=> {
-        GetAll();
+        //GetAll();
     }, []);
 
     return (
@@ -41,20 +41,27 @@ export const EmployeesList = () => {
                     </thead>
                     <tbody>
                         {
-                            employees.map((employee, index)=>{
-                                return (
-                                    <Fragment key={index}>
-                                        <tr>
-                                            <td>{(index + 1)}</td>
-                                            <td>{employee.name || "--"} {employee.lastName || "--"}</td>
-                                            <td>{employee.document || "--"}</td>
-                                            <td>{employee.salary || "--"}</td>
-                                            <td>{employee.gender || "--"}</td>
-                                            <td>{employee.startDate || "--"}</td>
-                                        </tr>
-                                    </Fragment>
-                                );
-                            })
+                            ((employees.length > 0)?
+                                employees.map((employee, index)=>{
+                                    return (
+                                        <Fragment key={index}>
+                                            <tr>
+                                                <td>{(index + 1)}</td>
+                                                <td>{employee.name || "--"} {employee.lastName || "--"}</td>
+                                                <td>{employee.document || "--"}</td>
+                                                <td>{employee.salary || "--"}</td>
+                                                <td>{employee.gender || "--"}</td>
+                                                <td>{employee.startDate || "--"}</td>
+                                            </tr>
+                                        </Fragment>
+                                    );
+                                })
+                            :   <tr className="tr-no-data">
+                                    <td colspan="6">
+                                        No Employees Found :(
+                                    </td>
+                                </tr>
+                            )
                         }
                     </tbody>
                 </table>
@@ -86,7 +93,7 @@ export const EmployeesList = () => {
                     margin-top:10px;
                     border-radius:10px;
                     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.08);
-                    padding-bottom:20px;
+                    padding-bottom:10px;
                 }
 
                 .ctr-employees .tbl-employees thead tr th{
@@ -105,6 +112,16 @@ export const EmployeesList = () => {
                     background-color:rgba(0, 0, 0, 0.06);
                     border-top:2px solid lightgray;
                     border-bottom:2px solid lightgray !important;
+                }
+
+                .ctr-employees .tbl-employees tbody .tr-no-data {
+                    background-color:rgba(0, 0, 0, 0.05);
+                }
+
+                .ctr-employees .tbl-employees tbody .tr-no-data td {
+                    text-align:center;
+                    font-weight:300;
+                    font-size:18px;
                 }
             `}</style>
         </Fragment>
