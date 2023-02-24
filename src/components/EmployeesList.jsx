@@ -21,13 +21,15 @@ export const EmployeesList = () => {
     };
 
     useEffect( ()=> {
-        //GetAll();
+        GetAll();
     }, []);
 
     return (
         <Fragment>
             <div className="ctr-employees">
-                <h4 className="tbl-employees-title">List of Employees: {employees.length}</h4>
+                <h4 className="tbl-employees-title">List of Employees 
+                    <span className="counter">{employees.length}</span>
+                </h4>
                 <table className="tbl-employees">
                     <thead>
                         <tr>
@@ -83,7 +85,18 @@ export const EmployeesList = () => {
 
                 .ctr-employees .tbl-employees-title {
                     font-size:22px;
-                    font-weight:300;
+                    font-weight:bold;
+                    color:#34495E;
+                }
+
+                .ctr-employees .tbl-employees-title .counter {
+                    background-color:dodgerblue;
+                    color:white;
+                    font-weight:bold;
+                    font-size:12px;
+                    margin:0 5px;
+                    padding:3px 4.5px;
+                    border-radius:50px;
                 }
 
                 .ctr-employees .tbl-employees {
